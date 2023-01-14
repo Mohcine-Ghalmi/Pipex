@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_putint.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 11:30:31 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/13 18:39:55 by mghalmi          ###   ########.fr       */
+/*   Created: 2022/11/13 10:30:11 by mghalmi           #+#    #+#             */
+/*   Updated: 2022/11/14 18:14:41 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-#define PIPEX_H
+#include "ft_printf.h"
 
-# define READ 0
-# define WRITE 1
+int	ft_putint(int nbr)
+{
+	int				count;
+	unsigned int	x;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "ft_printf/ft_printf.h"
-#include <ctype.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include "libft/libft.h"
-#include <errno.h>
-#include <sys/wait.h>
-
-#endif
+	count = 0;
+	if (nbr < 0)
+	{
+		count += ft_putchar('-');
+		x = (unsigned int)(nbr * -1);
+	}
+	else
+		x = (unsigned int)nbr;
+	if (x >= 10)
+		count += ft_putint(x / 10);
+	count += ft_putchar(x % 10 + 48);
+	return (count);
+}

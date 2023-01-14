@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 11:30:31 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/13 18:39:55 by mghalmi          ###   ########.fr       */
+/*   Created: 2022/11/13 10:36:54 by mghalmi           #+#    #+#             */
+/*   Updated: 2022/11/15 15:37:22 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-#define PIPEX_H
+#include "ft_printf.h"
 
-# define READ 0
-# define WRITE 1
+int	ft_puthex(unsigned long long n)
+{
+	int		count;
+	char	*hex;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "ft_printf/ft_printf.h"
-#include <ctype.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include "libft/libft.h"
-#include <errno.h>
-#include <sys/wait.h>
-
-#endif
+	count = 0;
+	hex = "0123456789abcdef";
+	if (n >= 16)
+	{
+		count += ft_puthex(n / 16);
+		count += ft_puthex(n % 16);
+	}
+	else if (n < 16)
+		count += ft_putchar(hex[n]);
+	return (count);
+}
