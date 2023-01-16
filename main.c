@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/07 14:30:31 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/15 15:07:07 by mghalmi          ###   ########.fr       */
+/*   Created: 2023/01/15 15:52:38 by mghalmi           #+#    #+#             */
+/*   Updated: 2023/01/15 15:52:39 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// working 
 char    *ret_path(char **envp)
 {
     while (ft_strncmp("PATH", *envp, 4))
@@ -38,9 +37,7 @@ char    *command(char **paths, char *cmd)
     return NULL;
 }
 
-void    close_pipes(int pipe[2])
+int main(int argc, char **argv, char **envp)
 {
-    close(pipe[READ]);
-    close(pipe[WRITE]);
-    exit(1);
+    printf("%s", command(envp, "ls"));
 }
