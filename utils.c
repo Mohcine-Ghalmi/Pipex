@@ -20,17 +20,7 @@ char    *Path_Line(char **envp)
     return (*envp + 5);
 }
 
-char **Paths_Separated(char *path)
-{
-    char *path;
-	char **path_cmd;
-
-	path = path_line(envp);
-	path_cmd = ft_split(path, ':');
-
-    return (path_cmd);
-}
-
+//working
 char    *Path_Join_Cmd(char **Paths_Separated, char *In_Cmd)
 {
     char    *to_join;

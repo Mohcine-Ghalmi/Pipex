@@ -22,11 +22,15 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "libft/libft.h"
+#include "../libft/libft.h"
 #include <errno.h>
 #include <sys/wait.h>
 
 char    *path_line(char **envp);
-void err_p(char *msg);
+void    err_p(char *msg);
+char    *Path_Join_Cmd(char **Paths_Separated, char *In_Cmd);
+void    err_m(char *msg);
+void    child_free(char **cmd_arg, char *cmd);
+void close_pipes(int pipe[2]);
 
 #endif

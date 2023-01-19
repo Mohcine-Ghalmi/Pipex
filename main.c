@@ -12,22 +12,43 @@
 
 #include "pipex.h"
 
-char    *path_line(char **envp)
+char    *Path_Line(char **envp)
 {
     while (ft_strncmp("PATH", *envp, 4))
         envp++;
     return (*envp + 5);
 }
 
+char    *Path_Join_Cmd(char **Paths_Separated, char *In_Cmd)
+{
+    char    *to_join;
+    char    *out_cmd;
+
+    while (*Paths_Separated)
+    {
+        to_join = ft_strjoin(*Paths_Separated, "/");
+        out_cmd = ft_strjoin(to_join, In_Cmd);
+        free(to_join);
+        if (access(out_cmd , X_OK) == 0)
+            return out_cmd;
+        free(out_cmd);
+        Paths_Separated++;
+    }
+    return NULL;
+}
+
 int main(int argc, char **argv, char **envp)
 {
+    (void)argc;
+    (void)argv;
     char *path;
     char **path_cmd;
+    char *cmd;
 
-    path = path_line(envp);
+    path = Path_Line(envp);
     path_cmd = ft_split(path, ':');
-    printf("%s\n", path);
 
-    for (int i = 0; i < strlen(*path_cmd); i++)
-        printf("%s\n", path_cmd[i]);
+    cmd = Path_Join_Cmd(path_cmd, argv[1]);
+    printf("%s", cmd);
+    return 0;
 }
