@@ -75,7 +75,7 @@ int main(int argc, char **argv, char **envp)
 	if (argc - 1 != 4)
 		return (0);
 	infile = open(argv[1],O_RDONLY);
-	outfile = open(argv[4], O_WRONLY, O_TRUNC, 0644);
+	outfile = open(argv[4], O_CREAT,O_WRONLY, O_TRUNC, 0644);
 	if (infile < 0 || outfile < 0)
 		err_p("open");
 	pipex(infile, argv[2], outfile, argv[4], envp);	
