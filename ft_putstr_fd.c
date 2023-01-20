@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:07:58 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/20 15:08:20 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/20 16:01:30 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	while (*s)
 		write(fd, s++, 1);
+	exit(1);
 }
