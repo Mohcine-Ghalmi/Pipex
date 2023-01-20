@@ -5,21 +5,31 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/06 11:30:38 by mghalmi           #+#    #+#              #
-#    Updated: 2023/01/13 18:46:29 by mghalmi          ###   ########.fr        #
+#    Created: 2023/01/20 12:30:19 by mghalmi           #+#    #+#              #
+#    Updated: 2023/01/20 13:14:32 by mghalmi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = PIPEX
+NAME = pipex.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
-SRC =
+CFLAG = -Wall -Wextra -Werror
+Rm = -rf
+SRCS = ft_split.c   ft_strjoin.c  ft_strncmp.c utils.c pipex.c
+INCLUDE = pipex.h
 
+all : $(NAME)
 
-$(NAME) : printf
-	gcc $(src) ft_printf/libftprintf.a 
-	
+SRO : $(SRCS:.c=.o)
 
-printf :
-	make -C ft_printf
+%(NAME) : $(SRO) $(INCLUDE)
+	ar rc $(NAME) $(SRO)
+	$(CC) $(CFLAG) pipex.c $(NAME) -o pipex
+
+clean :
+	rm -rf $(SRO)
+
+fclean : clean
+	rm -rf $(NAME)
+
+re :
+	fclean all

@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err.c                                              :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 16:07:20 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/18 16:08:22 by mghalmi          ###   ########.fr       */
+/*   Created: 2022/10/09 12:13:55 by mghalmi           #+#    #+#             */
+/*   Updated: 2022/10/18 17:31:19 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void err_m(char *msg)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-    write(1, msg, ft_strlen(msg));
-    exit(1);
-}
+	int				i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-void err_p(char *msg)
-{
-    perror(msg);
-    exit(1);
-}
-
-void    child_free(char **cmd_arg, char *cmd)
-{
-    free(cmd_arg);
-    free(cmd);
-}
-
-void    parent_free(int infile, int outfile, )
-
-void close_pipes(int pipe[2])
-{
-    close(pipe[READ]);
-    close(pipe[WRITE]);
+	i = 0;
+	if (n == 0)
+		return (0);
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (str1[i] && str2[i] && str1[i] == str2[i] && --n)
+		++i;
+	return (str1[i] - str2[i]);
 }
