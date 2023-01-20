@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:08:05 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/20 16:04:28 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/20 18:36:22 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,28 @@ void	pipex(char **argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc - 1 != 4)
+	int		cond;
+	int		i;
+
+	i = 0;
+	cond = 0;
+	while (envp[i])
 	{
-		ft_putstr_fd("more or less argument number", 2);
+		if (ft_strncmp(envp[i], "PATH", 4) == 0)
+			cond = 1;
+		i++;
+	}
+	if (cond == 0)
+	{
+		ft_putstr_fd("Error ENVP", 2);
 		exit(1);
 	}
+	if (argc - 1 != 4)
+	{
+		ft_putstr_fd("more or less data ", 2);
+		exit(1);
+	}
+	
 	pipex(argv, envp);
 	return (0);
 }

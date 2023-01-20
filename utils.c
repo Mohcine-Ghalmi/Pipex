@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:34:37 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/20 16:06:31 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/20 17:58:44 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_check_env(char *path)
 {
 	if (!path)
 	{
-		ft_putstr_fd("env not found\n", STDERR_FILENO);
+		ft_putstr_fd("command not found\n", STDERR_FILENO);
 		return (0);
 	}
 	return (1);
