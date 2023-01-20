@@ -41,7 +41,7 @@ int	ft_check_env(char *path)
 {
 	if (!path)
 	{
-		ft_putstr_fd("env not found", 2);
+		ft_putstr_fd("env not found\n", STDERR_FILENO);
 		return (0);
 	}
 	return (1);
