@@ -17,7 +17,7 @@ void    child1(t_pipe var, char *cmd, char **envp)
     var.cmd_opt = ft_split(cmd, ' ');
     var.cmd = Path_Join_Cmd(var.paths_cmd, var.cmd_opt[0]);
     if (!ft_check_env(var.cmd))
-        free(&var);
+        free_child(&var);
     dup2(var.in_out[1], 1);
     close(var.in_out[0]);
     dup2(var.infile, 0);
@@ -29,7 +29,7 @@ void    child2(t_pipe var, char *cmd, char **envp)
     var.cmd_opt = ft_split(cmd, ' ');
     var.cmd = Path_Join_Cmd(var.paths_cmd, var.cmd_opt[0]);
     if (!ft_check_env(var.cmd))
-        free(&var);
+        free_child(&var);
     dup2(var.in_out[0], 0);
     close(var.in_out[1]);
     dup2(var.outfile, 1);

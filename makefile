@@ -14,7 +14,7 @@ NAME = pipex.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
-SRC = ft_split.c   ft_strjoin.c  ft_strncmp.c utils.c pipex.c
+SRC = ft_split.c   ft_strjoin.c  ft_strncmp.c utils.c pipex.c ft_pustr_fd.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
