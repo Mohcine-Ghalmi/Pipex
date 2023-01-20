@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 09:11:43 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/20 13:11:14 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/20 15:08:26 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,14 @@ char    *Path_Join_Cmd(char **Paths_Separated, char *Cmd);
 int    ft_check_env(char   *path);
 void    free_child(t_pipe *var);
 void    free_all(t_pipe *var);
+size_t	ft_strlen(const char *s);
+int	count_words(char const *s, char c);
+int	word_size(char const *s, char c);
+void	*ft_free(char **split);
+char	*words(char const *s, char c);
+char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif

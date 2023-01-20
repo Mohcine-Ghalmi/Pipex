@@ -6,11 +6,21 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:29:08 by mghalmi           #+#    #+#             */
-/*   Updated: 2022/10/18 17:15:30 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:19:11 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	i++;
+	return (i);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

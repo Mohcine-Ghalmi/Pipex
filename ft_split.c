@@ -6,11 +6,11 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 08:51:03 by mghalmi           #+#    #+#             */
-/*   Updated: 2022/10/29 01:00:44 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:19:31 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
 int	count_words(char const *s, char c)
 {
