@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 19:22:21 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/22 20:01:01 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	main(int argc, char **av, char **env)
 		dup2(outfile, STDOUT_FILENO);
 		pipex(av[2], env, infile);
 		while (i < argc - 2)
-			pipex(av[i++], env, infile);
+			pipex(av[i++], env, STDOUT_FILENO);
 		exec(av[i], env);
 	}
 	else
