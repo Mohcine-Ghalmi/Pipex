@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 19:16:50 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/22 19:21:45 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	exec(char *cmd, char **env)
 	exit(1);
 }
 
-void	redir(char *cmd, char **env)
+void	pipex(char *cmd, char **env)
 {
 	pid_t	pid;
 	int		pipefd[2];
@@ -102,7 +102,7 @@ int	main(int argc, char **av, char **env)
 		outfile = openfile(av[4], STDOUT_FILENO);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
-		redir(av[2], env);
+		pipex(av[2], env);
 		exec(av[3], env);
 	}
 	else
