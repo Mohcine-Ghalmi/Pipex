@@ -6,19 +6,21 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:26:48 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 17:26:42 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/22 19:19:49 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*path_join (char *path, char *bin)
+char	*path_join(char *path, char *bin)
 {
 	char	*joined;
+	int		len;
 	int		i;
 	int		j;
 
-	joined = malloc(sizeof(char) * (ft_strchr(path, 0) + ft_strchr(bin, 0) + 2));
+	len = ft_strchr(path, 0) + ft_strchr(bin, 0);
+	joined = malloc(sizeof(char) *(len + 2));
 	i = 0;
 	j = 0;
 	while (path[j])

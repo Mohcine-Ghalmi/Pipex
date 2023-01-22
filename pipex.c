@@ -6,13 +6,13 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 18:28:49 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/22 19:16:50 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	openfile (char *filename, int mode)
+int	openfile(char *filename, int mode)
 {
 	if (mode == STDIN_FILENO)
 	{
@@ -27,7 +27,7 @@ int	openfile (char *filename, int mode)
 		return (open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644));
 }
 
-char	*getPath (char *cmd, char **env)
+char	*getpath(char *cmd, char **env)
 {
 	char	*path;
 	char	*dir;
@@ -53,14 +53,14 @@ char	*getPath (char *cmd, char **env)
 	return (cmd);
 }
 
-void	exec (char *cmd, char **env)
+void	exec(char *cmd, char **env)
 {
 	char	**args;
 	char	*path;
 
 	args = ft_split(cmd, ' ');
-	path = getPath(args[0], env);
-	if ( execve(path, args, env) < 0)
+	path = getpath(args[0], env);
+	if (execve(path, args, env) < 0)
 	{
 		write(STDERR_FILENO, cmd, ft_strchr(cmd, 0));
 		write(STDERR_FILENO, ": command not found\n", 20);
@@ -91,7 +91,7 @@ void	redir(char *cmd, char **env)
 	}
 }
 
-int	main (int argc, char **av, char **env)
+int	main(int argc, char **av, char **env)
 {
 	int	infile;
 	int	outfile;
