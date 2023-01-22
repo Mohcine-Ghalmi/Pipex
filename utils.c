@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:26:48 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 19:19:49 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/22 22:03:34 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 char	*path_join(char *path, char *bin)
 {
 	char	*joined;
-	int		len;
 	int		i;
 	int		j;
 
-	len = ft_strchr(path, 0) + ft_strchr(bin, 0);
-	joined = malloc(sizeof(char) *(len + 2));
+	joined = malloc(sizeof(char) * (ft_strchr1(path, 0) + ft_strchr1(bin, 0) + 2));
 	i = 0;
 	j = 0;
 	while (path[j])
@@ -49,7 +47,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (str1[i] - str2[i]);
 }
 
-char	*ft_strdup(char *str, unsigned int n)
+char	*ft_strdup1(char *str, unsigned int n)
 {
 	char				*duped;
 	unsigned int		i;
@@ -62,7 +60,7 @@ char	*ft_strdup(char *str, unsigned int n)
 	return (duped);
 }
 
-int	ft_strchr(const char *s, int c)
+int	ft_strchr1(const char *s, int c)
 {
 	int		i;
 	char	find;

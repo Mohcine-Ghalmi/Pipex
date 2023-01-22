@@ -6,7 +6,7 @@
 #    By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 16:25:15 by mghalmi           #+#    #+#              #
-#    Updated: 2023/01/22 18:57:59 by mghalmi          ###   ########.fr        #
+#    Updated: 2023/01/22 22:11:05 by mghalmi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 HEADER = pipex.h
 
-SRC = pipex.c utils.c ft_split.c
+SRC = pipex.c utils.c ft_split.c 
 
-SRCB = pipex_bonus.c utils.c ft_split.c
+SRCB = pipex_bonus.c utils.c ft_split.c get_next_line/get_next_line_utils.c get_next_line/get_next_line.c utils_bonus.c
 
 OBJ = $(SRC:c=o)
 

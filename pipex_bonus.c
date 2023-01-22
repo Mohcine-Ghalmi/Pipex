@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 20:01:01 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/22 22:42:40 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	openfile(char *filename, int mode)
 	{
 		if (access(filename, F_OK))
 		{
-			write(STDERR_FILENO, filename, ft_strchr(filename, 0));
+			write(STDERR_FILENO, filename, ft_strchr1(filename, 0));
 			write(STDERR_FILENO, ": No such file or directory\n", 28);
 			return (0);
 		}
@@ -41,15 +41,15 @@ char	*getpath(char *cmd, char **env)
 	if (!env[i])
 		return (cmd);
 	path = env[i] + 5;
-	while (path && ft_strchr(path, ':') > 0)
+	while (path && ft_strchr1(path, ':') > 0)
 	{
-		dir = ft_strdup(path, ft_strchr(path, ':'));
+		dir = ft_strdup1(path, ft_strchr1(path, ':'));
 		bin = path_join(dir, cmd);
 		free(dir);
 		if (access(bin, F_OK) == 0)
 			return (bin);
 		free(bin);
-		path += ft_strchr(path, ':') + 1;
+		path += ft_strchr1(path, ':') + 1;
 	}
 	return (cmd);
 }
@@ -63,9 +63,13 @@ void	exec(char *cmd, char **env)
 	path = getpath(args[0], env);
 	if (execve(path, args, env) < 0)
 	{
-		write(STDERR_FILENO, cmd, ft_strchr(cmd, 0));
+		write(STDERR_FILENO, cmd, ft_strchr1(cmd, 0));
 		write(STDERR_FILENO, ": command not found\n", 20);
 	}
+	// while (*args)
+	// 	free(*args++);
+	// free(args);
+	// free(path);
 	exit(1);
 }
 
@@ -77,6 +81,8 @@ void	pipex(char *cmd, char **env, int infile)
 	if (pipe(pipefd) < 0)
 		exit(1);
 	pid = fork();
+	if (pid == -1)
+		exit(1);
 	if (pid)
 	{
 		close(pipefd[1]);
@@ -99,15 +105,27 @@ int	main(int argc, char **av, char **env)
 	int	infile;
 	int	outfile;
 	int	i;
-
+	int j;
+	
 	i = 3;
+	j = 2;
 	if (argc >= 5)
 	{
-		infile = openfile(av[1], STDIN_FILENO);
+		if (ft_strncmp(av[1], "here_doc", 9) == 0)
+		{
+			infile = open("tmp.txt", O_CREAT | O_RDWR | O_APPEND, 0777);
+			if (infile < 0)
+				exit(1);
+			here_doc(av, infile);
+			i = 4;
+			j = 3;
+		}
+		else
+			infile = openfile(av[1], STDIN_FILENO);
 		outfile = openfile(av[argc - 1], STDOUT_FILENO);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
-		pipex(av[2], env, infile);
+		pipex(av[j], env, infile);
 		while (i < argc - 2)
 			pipex(av[i++], env, STDOUT_FILENO);
 		exec(av[i], env);
