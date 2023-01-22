@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 08:51:03 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/20 13:19:31 by mghalmi          ###   ########.fr       */
+/*   Created: 2023/01/22 17:02:33 by mghalmi           #+#    #+#             */
+/*   Updated: 2023/01/22 17:04:58 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	count_words(char const *s, char c)
+static int	count_words(char const *s, char c)
 {
 	int	i;
 	int	word;
@@ -31,7 +31,7 @@ int	count_words(char const *s, char c)
 	return (word);
 }
 
-int	word_size(char const *s, char c)
+static int	word_size(char const *s, char c)
 {
 	int	wc;
 	int	i;
@@ -48,7 +48,7 @@ int	word_size(char const *s, char c)
 	return (wc);
 }
 
-void	*ft_free(char **split)
+static void	*ft_free(char **split)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ void	*ft_free(char **split)
 	return (NULL);
 }
 
-char	*words(char const *s, char c)
+static char	*words(char const *s, char c)
 {
 	int		wrld_len;
 	int		i;

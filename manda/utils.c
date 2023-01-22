@@ -5,69 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 09:34:37 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/20 17:58:44 by mghalmi          ###   ########.fr       */
+/*   Created: 2023/01/22 16:26:48 by mghalmi           #+#    #+#             */
+/*   Updated: 2023/01/22 17:26:42 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*path_line(char **envp)
+char	*path_join (char *path, char *bin)
 {
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	return (*envp + 5);
+	char	*joined;
+	int		i;
+	int		j;
+
+	joined = malloc(sizeof(char) * (ft_strchr(path, 0) + ft_strchr(bin, 0) + 2));
+	i = 0;
+	j = 0;
+	while (path[j])
+		joined[i++] = path[j++];
+	joined[i++] = '/';
+	j = 0;
+	while (bin[j])
+		joined[i++] = bin[j++];
+	joined[i] = 0;
+	return (joined);
 }
 
-char	*path_join_cmd(char **Paths_Separated, char *Cmd)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*to_join;
-	char	*out_cmd;
+	int				i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	while (*Paths_Separated)
-	{
-		to_join = ft_strjoin(*Paths_Separated, "/");
-		out_cmd = ft_strjoin(to_join, Cmd);
-		free(to_join);
-		if (access(out_cmd, X_OK) == 0)
-			return (out_cmd);
-		free(out_cmd);
-		Paths_Separated++;
-	}
-	return (NULL);
-}
-
-int	ft_check_env(char *path)
-{
-	if (!path)
-	{
-		ft_putstr_fd("command not found\n", STDERR_FILENO);
+	i = 0;
+	if (n == 0)
 		return (0);
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (str1[i] && str2[i] && str1[i] == str2[i] && --n)
+		++i;
+	return (str1[i] - str2[i]);
+}
+
+char	*ft_strdup(char *str, unsigned int n)
+{
+	char				*duped;
+	unsigned int		i;
+
+	i = 0;
+	duped = malloc(sizeof(char) * (n + 1));
+	while (i < n)
+		duped[i++] = *str++;
+	duped[n] = 0;
+	return (duped);
+}
+
+int	ft_strchr(const char *s, int c)
+{
+	int		i;
+	char	find;
+
+	find = (char)c;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == find)
+			return (i);
+		i++;
 	}
-	return (1);
-}
-
-void	free_child(t_pipe *var)
-{
-	int	i;
-
-	i = 0;
-	close(var->infile);
-	close(var->outfile);
-	while (var->paths_cmd[i])
-		free(var->paths_cmd[i++]);
-	free(var->paths_cmd);
-	exit(1);
-}
-
-void	free_all(t_pipe *var)
-{
-	int	i;
-
-	i = 0;
-	close(var->infile);
-	close(var->outfile);
-	while (var->paths_cmd[i])
-		free(var->paths_cmd[i++]);
-	free(var->paths_cmd);
+	if (s[i] == find)
+		return (i);
+	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 18:28:49 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/22 18:56:31 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	openfile (char *filename, int mode)
 	{
 		if (access(filename, F_OK))
 		{
-			perror("open");
+			write(STDERR_FILENO, filename, ft_strchr(filename, 0));
+			write(STDERR_FILENO, ": No such file or directory\n", 28);
 			return (0);
 		}
 		return (open(filename, O_RDONLY));
@@ -68,7 +69,7 @@ void	exec (char *cmd, char **env)
 	exit(1);
 }
 
-void	redir(char *cmd, char **env)
+void	redir(char *cmd, char **env, int infile)
 {
 	pid_t	pid;
 	int		pipefd[2];
@@ -86,8 +87,10 @@ void	redir(char *cmd, char **env)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
-		exec(cmd, env);
-		exit(1);
+		if (infile == STDIN_FILENO)
+			exit(1);
+		else
+			exec(cmd, env);
 	}
 }
 
@@ -95,15 +98,19 @@ int	main (int argc, char **av, char **env)
 {
 	int	infile;
 	int	outfile;
+	int i;
 
-	if (argc == 5)
+	i = 3;
+	if (argc >= 5)
 	{
 		infile = openfile(av[1], STDIN_FILENO);
-		outfile = openfile(av[4], STDOUT_FILENO);
+		outfile = openfile(av[argc - 1], STDOUT_FILENO);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
-		redir(av[2], env);
-		exec(av[3], env);
+		redir(av[2], env, infile);
+		while (i < argc - 2)
+			redir(av[i++], env, infile);
+		exec(av[i], env);
 	}
 	else
 		write(STDERR_FILENO, "Invalid number of arguments.\n", 29);

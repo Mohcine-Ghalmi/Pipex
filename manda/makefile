@@ -5,28 +5,45 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/22 11:27:02 by mghalmi           #+#    #+#              #
-#    Updated: 2023/01/22 11:27:58 by mghalmi          ###   ########.fr        #
+#    Created: 2023/01/22 16:25:15 by mghalmi           #+#    #+#              #
+#    Updated: 2023/01/22 18:57:59 by mghalmi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pipex.a
-CC = gcc
+NAME = pipex
+
+NAMEB = pipex_bonus
+
+CC = clang
+
 CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
-SRC = ft_split.c   ft_strjoin.c  ft_strncmp.c utils.c pipex.c ft_putstr_fd.c
-OBJ = $(SRC:.c=.o)
 
-all : $(NAME)
+HEADER = pipex.h
 
-$(NAME) : $(OBJ) pipex.h
-	ar rc $(NAME) $(OBJ)
-	$(CC) $(CFLAGS) pipex.c $(NAME) -o pipex
-	
-clean :
-	$(RM) $(OBJ) $(NAME)
+SRC = pipex.c utils.c ft_split.c
 
-fclean : clean
-	$(RM) $(NAME) pipex
+SRCB = pipex_bonus.c utils.c ft_split.c
 
-re : fclean all
+OBJ = $(SRC:c=o)
+
+OBJB = $(SRCB:c=o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+
+bonus: $(OBJB)
+	$(CC) $(CFLAGS) -o $(NAMEB) $(OBJB)
+
+
+clean:
+	rm -f $(OBJ) $(OBJB)
+
+fclean:
+	rm -f $(OBJ) $(OBJB)
+	rm -f $(NAME) $(NAMEB) bonus
+
+re: fclean all
+
+.PHONY: clean fclean re bonus

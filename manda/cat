@@ -1,0 +1,12 @@
+Makefile
+cat
+ft_split.c
+ft_split.o
+infile
+pipex
+pipex.c
+pipex.h
+pipex_bonus.c
+pipex_bonus.o
+utils.c
+utils.o
