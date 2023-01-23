@@ -66,10 +66,6 @@ void	exec(char *cmd, char **env)
 		write(STDERR_FILENO, cmd, ft_strchr1(cmd, 0));
 		write(STDERR_FILENO, ": command not found\n", 20);
 	}
-	// while (*args)
-	// 	free(*args++);
-	// free(args);
-	// free(path);
 	exit(1);
 }
 
@@ -128,6 +124,7 @@ int	main(int argc, char **av, char **env)
 		pipex(av[j], env, infile);
 		while (i < argc - 2)
 			pipex(av[i++], env, STDOUT_FILENO);
+		unlink("tmp.txt");
 		exec(av[i], env);
 	}
 	else

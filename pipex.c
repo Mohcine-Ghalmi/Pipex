@@ -40,15 +40,15 @@ char	*getpath(char *cmd, char **env)
 	if (!env[i])
 		return (cmd);
 	path = env[i] + 5;
-	while (path && ft_strchr(path, ':') > 0)
+	while (path && ft_strchr1(path, ':') > 0)
 	{
-		dir = ft_strdup(path, ft_strchr(path, ':'));
+		dir = ft_strdup1(path, ft_strchr1(path, ':'));
 		bin = path_join(dir, cmd);
 		free(dir);
 		if (access(bin, F_OK) == 0)
 			return (bin);
 		free(bin);
-		path += ft_strchr(path, ':') + 1;
+		path += ft_strchr1(path, ':') + 1;
 	}
 	return (cmd);
 }
@@ -62,13 +62,9 @@ void	exec(char *cmd, char **env)
 	path = getpath(args[0], env);
 	if (execve(path, args, env) < 0)
 	{
-		write(STDERR_FILENO, cmd, ft_strchr(cmd, 0));
+		write(STDERR_FILENO, cmd, ft_strchr1(cmd, 0));
 		write(STDERR_FILENO, ": command not found\n", 20);
 	}
-	while (*args)
-		free(*args++);
-	free(args);
-	free(path);
 	exit(1);
 }
 
