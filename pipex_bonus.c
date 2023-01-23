@@ -105,6 +105,11 @@ int	main(int argc, char **av, char **env)
 	
 	i = 3;
 	j = 2;
+	if (ft_strncmp(av[2], "",1) == 0|| ft_strncmp(av[3], "",1) == 0)
+	{
+		write(STDERR_FILENO, "No command are In\n", 19);
+		exit(1);
+	}
 	if (argc >= 5)
 	{
 		if (ft_strncmp(av[1], "here_doc", 9) == 0)

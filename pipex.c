@@ -19,7 +19,7 @@ int	openfile(char *filename, int mode)
 		if (access(filename, F_OK))
 		{
 			perror("open");
-			return (0);
+			exit(1);
 		}
 		return (open(filename, O_RDONLY));
 	}
@@ -96,6 +96,11 @@ int	main(int argc, char **av, char **env)
 	int	infile;
 	int	outfile;
 
+	if (ft_strncmp(av[2], "",1) == 0|| ft_strncmp(av[3], "",1) == 0)
+	{
+		write(STDERR_FILENO, "No command are In\n", 19);
+		exit(1);
+	}
 	if (argc == 5)
 	{
 		infile = openfile(av[1], STDIN_FILENO);
@@ -105,6 +110,7 @@ int	main(int argc, char **av, char **env)
 		pipex(av[2], env);
 		exec(av[3], env);
 	}
+	
 	else
 		write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
 	return (0);
