@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 22:42:40 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/23 15:39:55 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	pipex(char *cmd, char **env, int infile)
 	pid_t	pid2;
 	int		pipefd[2];
 
-	if (pipe(pipefd) < 0)
-		exit(1);
 	pid1 = fork();
 	pid2 = fork();
+	if (pid1 == -1 || pid2 == -1 || pipe(pipefd) < 0)
+		exit(1);
 	if (pid1)
 	{
 		close(pipefd[0]);
@@ -102,30 +102,16 @@ int	main(int argc, char **av, char **env)
 	int	infile;
 	int	outfile;
 	int	i;
-	int j;
-	
+
 	i = 3;
-	j = 2;
 	if (argc >= 5)
 	{
-		while (av[i] && i < argc)
-		{
-			if (ft_strspace(av[i]) > 0|| ft_strspace(av[i + 1]) > 0)
-			{
-				write(STDERR_FILENO, "Missing Command\n", 19);
-				exit(1);
-			}
-			i++;
-		}
-		i = 3;
+		check_space(av, argc);
 		if (ft_strncmp(av[1], "here_doc", 9) == 0)
 		{
 			infile = open("tmp.txt", O_CREAT | O_RDWR | O_APPEND, 0777);
-			if (infile < 0)
-				exit(1);
 			here_doc(av, infile);
 			i = 4;
-			j = 3;
 		}
 		else
 			infile = openfile(av[1], STDIN_FILENO);
@@ -134,7 +120,7 @@ int	main(int argc, char **av, char **env)
 			exit(1);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
-		pipex(av[j], env, infile);
+		pipex(av[i - 1], env, infile);
 		while (i < argc - 2)
 			pipex(av[i++], env, STDOUT_FILENO);
 		unlink("tmp.txt");

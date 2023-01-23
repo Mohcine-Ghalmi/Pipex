@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:26:48 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 22:03:34 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/23 15:34:42 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char	*path_join(char *path, char *bin)
 	char	*joined;
 	int		i;
 	int		j;
+	int		len;
 
-	joined = malloc(sizeof(char) * (ft_strchr1(path, 0) + ft_strchr1(bin, 0) + 2));
+	len = ft_strchr1(path, 0) + ft_strchr1(bin, 0);
+	joined = malloc(sizeof(char) * (len + 2));
 	i = 0;
 	j = 0;
 	while (path[j])
@@ -80,17 +82,17 @@ int	ft_strchr1(const char *s, int c)
 
 int	ft_strspace(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ft_strncmp(&str[i], "", 1) == 0)
-		return 1;
+		return (1);
 	while (str[i])
 	{
-		if(str[i] == ' ')
+		if (str[i] == ' ')
 			i++;
 		else
-			return 0;
+			return (0);
 	}
-	return i;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:37 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 22:31:22 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/23 15:33:55 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include <err.h>
 # include <stdio.h>
 # include <string.h>
-#include <ctype.h>
-#include "get_next_line/get_next_line.h"
+# include "get_next_line/get_next_line.h"
 
 char	*path_join(char *path, char *bin);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -30,6 +29,7 @@ char	*ft_strdup1(char *str, unsigned int n);
 char	**ft_split(char const *s, char c);
 void	ft_putstr_fd(char *s, int fd);
 void	here_doc(char **av, int infile);
-int	    ft_strspace(char *str);
+int		ft_strspace(char *str);
+void	check_space(char **av, int argc);
 
 #endif

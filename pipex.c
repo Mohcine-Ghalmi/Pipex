@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/22 21:05:07 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/23 15:17:41 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	openfile(char *filename, int mode)
 		{
 			write(STDERR_FILENO, filename, ft_strchr1(filename, 0));
 			write(STDERR_FILENO, ": No such file or directory\n", 28);
-			return -1;
+			return (-1);
 		}
 		return (open(filename, O_RDONLY));
 	}
@@ -100,11 +100,10 @@ int	main(int argc, char **av, char **env)
 	int	infile;
 	int	outfile;
 
-	
-	if (ft_strspace(av[2]) > 0|| ft_strspace(av[3]) > 0)
+	if (ft_strspace(av[2]) > 0 || ft_strspace(av[3]) > 0)
 	{
-		write(STDERR_FILENO, "Missing Command\n", 19);
-		exit(1);
+		write(STDERR_FILENO, "Missing Command\n", 17);
+		return (0);
 	}
 	if (argc == 5)
 	{
@@ -117,7 +116,6 @@ int	main(int argc, char **av, char **env)
 		pipex(av[2], env);
 		exec(av[3], env);
 	}
-	
 	else
 		write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
 	return (0);
