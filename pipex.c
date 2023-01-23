@@ -19,7 +19,7 @@ int	openfile(char *filename, int mode)
 		if (access(filename, F_OK))
 		{
 			perror("open");
-			exit(1);
+			return -1;
 		}
 		return (open(filename, O_RDONLY));
 	}
@@ -70,25 +70,29 @@ void	exec(char *cmd, char **env)
 
 void	pipex(char *cmd, char **env)
 {
-	pid_t	pid;
+	pid_t	pid1;
+	pid_t	pid2;
 	int		pipefd[2];
 
 	if (pipe(pipefd) < 0)
 		exit(1);
-	pid = fork();
-	if (pid)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		waitpid(pid, NULL, 0);
-	}
-	else
+	pid1 = fork();
+	pid2 = fork();
+	if (pid1)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
 		exec(cmd, env);
 		exit(1);
 	}
+	if (pid2)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN_FILENO);
+	}
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
+
 }
 
 int	main(int argc, char **av, char **env)
@@ -96,7 +100,7 @@ int	main(int argc, char **av, char **env)
 	int	infile;
 	int	outfile;
 
-	if (ft_strncmp(av[2], "",1) == 0|| ft_strncmp(av[3], "",1) == 0)
+	if (ft_strncmp(av[2], " ",ft_strlen(av[2])) == 0|| ft_strncmp(av[3], " ",ft_strlen(av[3])) == 0)
 	{
 		write(STDERR_FILENO, "No command are In\n", 19);
 		exit(1);
@@ -105,6 +109,8 @@ int	main(int argc, char **av, char **env)
 	{
 		infile = openfile(av[1], STDIN_FILENO);
 		outfile = openfile(av[4], STDOUT_FILENO);
+		if (infile == -1)
+			exit(1);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
 		pipex(av[2], env);

@@ -30,6 +30,7 @@ char	*ft_strdup1(char *str, unsigned int n);
 char	**ft_split(char const *s, char c);
 void	ft_putstr_fd(char *s, int fd);
 void	here_doc(char **av, int infile);
+size_t	ft_strlen(char *s);
 
 
 #endif
