@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/23 15:39:55 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/23 15:42:57 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,5 @@ int	main(int argc, char **av, char **env)
 		unlink("tmp.txt");
 		exec(av[i], env);
 	}
-	else
-		write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
-	return (0);
+	write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
 }
