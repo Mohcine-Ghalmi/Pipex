@@ -78,14 +78,19 @@ int	ft_strchr1(const char *s, int c)
 	return (0);
 }
 
-size_t	ft_strlen(char *s)
+int	ft_strspace(char *str)
 {
-	size_t	i;
+	int i;
 
-	if (!s)
-		return (0);
 	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	if (ft_strncmp(&str[i], "", 1) == 0)
+		return 1;
+	while (str[i])
+	{
+		if(str[i] == ' ')
+			i++;
+		else
+			return 0;
+	}
+	return i;
 }

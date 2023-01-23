@@ -18,7 +18,8 @@ int	openfile(char *filename, int mode)
 	{
 		if (access(filename, F_OK))
 		{
-			perror("open");
+			write(STDERR_FILENO, filename, ft_strchr1(filename, 0));
+			write(STDERR_FILENO, ": No such file or directory\n", 28);
 			return -1;
 		}
 		return (open(filename, O_RDONLY));
@@ -92,7 +93,6 @@ void	pipex(char *cmd, char **env)
 	}
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
-
 }
 
 int	main(int argc, char **av, char **env)
@@ -100,9 +100,10 @@ int	main(int argc, char **av, char **env)
 	int	infile;
 	int	outfile;
 
-	if (ft_strncmp(av[2], " ",ft_strlen(av[2])) == 0|| ft_strncmp(av[3], " ",ft_strlen(av[3])) == 0)
+	
+	if (ft_strspace(av[2]) > 0|| ft_strspace(av[3]) > 0)
 	{
-		write(STDERR_FILENO, "No command are In\n", 19);
+		write(STDERR_FILENO, "Missing Command\n", 19);
 		exit(1);
 	}
 	if (argc == 5)

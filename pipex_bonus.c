@@ -20,7 +20,7 @@ int	openfile(char *filename, int mode)
 		{
 			write(STDERR_FILENO, filename, ft_strchr1(filename, 0));
 			write(STDERR_FILENO, ": No such file or directory\n", 28);
-			return (0);
+			return (-1);
 		}
 		return (open(filename, O_RDONLY));
 	}
@@ -71,21 +71,15 @@ void	exec(char *cmd, char **env)
 
 void	pipex(char *cmd, char **env, int infile)
 {
-	pid_t	pid;
+	pid_t	pid1;
+	pid_t	pid2;
 	int		pipefd[2];
 
 	if (pipe(pipefd) < 0)
 		exit(1);
-	pid = fork();
-	if (pid == -1)
-		exit(1);
-	if (pid)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		waitpid(pid, NULL, 0);
-	}
-	else
+	pid1 = fork();
+	pid2 = fork();
+	if (pid1)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
@@ -94,6 +88,13 @@ void	pipex(char *cmd, char **env, int infile)
 		else
 			exec(cmd, env);
 	}
+	if (pid2)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN_FILENO);
+	}
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 }
 
 int	main(int argc, char **av, char **env)
@@ -105,13 +106,18 @@ int	main(int argc, char **av, char **env)
 	
 	i = 3;
 	j = 2;
-	if (ft_strncmp(av[2], "",ft_strlen(av[2])) == 0|| ft_strncmp(av[3], "",ft_strlen(av[3])) == 0)
-	{
-		write(STDERR_FILENO, "No command are In\n", 19);
-		exit(1);
-	}
 	if (argc >= 5)
 	{
+		while (av[i] && i < argc)
+		{
+			if (ft_strspace(av[i]) > 0|| ft_strspace(av[i + 1]) > 0)
+			{
+				write(STDERR_FILENO, "Missing Command\n", 19);
+				exit(1);
+			}
+			i++;
+		}
+		i = 3;
 		if (ft_strncmp(av[1], "here_doc", 9) == 0)
 		{
 			infile = open("tmp.txt", O_CREAT | O_RDWR | O_APPEND, 0777);
@@ -124,6 +130,8 @@ int	main(int argc, char **av, char **env)
 		else
 			infile = openfile(av[1], STDIN_FILENO);
 		outfile = openfile(av[argc - 1], STDOUT_FILENO);
+		if (infile == -1)
+			exit(1);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
 		pipex(av[j], env, infile);
