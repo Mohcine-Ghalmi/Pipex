@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 22:10:20 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 10:05:17 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:54:50 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	dp(int infile, int outfile)
 void	wl(int i, int argc, char **env, char **av)
 {
 	while (i < argc - 2)
-		pipex(av[i++], env, STDOUT_FILENO);
+	{
+		pipex(av[i + 1], av[i + 2], env, STDOUT_FILENO);
+		i += 2;
+	}
 	unlink("tmp.txt");
-	exec(av[i], env);
+	exit(1);
 }

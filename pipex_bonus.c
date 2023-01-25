@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 10:04:35 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:57:24 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,32 +69,9 @@ void	exec(char *cmd, char **env)
 	exit(1);
 }
 
-void	pipex(char *cmd, char **env, int infile)
+void	pipex(char *cmd1, char *cmd2, char **envp)
 {
-	pid_t	pid1;
-	pid_t	pid2;
-	int		pipefd[2];
-
-	pid1 = fork();
-	pid2 = fork();
-	if (pid1 == -1 || pid2 == -1 || pipe(pipefd) < 0)
-		exit(1);
-	if (pid1)
-	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		if (infile == STDIN_FILENO)
-			exit(1);
-		else
-			exec(cmd, env);
-	}
-	if (pid2)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-	}
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	  
 }
 
 int	main(int argc, char **av, char **env)
@@ -119,7 +96,7 @@ int	main(int argc, char **av, char **env)
 		if (infile == -1)
 			exit(1);
 		dp(infile, outfile);
-		pipex(av[i - 1], env, infile);
+		pipex(av[i - 1], av[i],env, infile);
 		wl(i, argc, env, av);
 	}
 	write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
