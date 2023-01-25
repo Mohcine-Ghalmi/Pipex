@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/23 15:42:57 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 10:04:35 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,9 @@ int	main(int argc, char **av, char **env)
 		outfile = openfile(av[argc - 1], STDOUT_FILENO);
 		if (infile == -1)
 			exit(1);
-		dup2(infile, STDIN_FILENO);
-		dup2(outfile, STDOUT_FILENO);
+		dp(infile, outfile);
 		pipex(av[i - 1], env, infile);
-		while (i < argc - 2)
-			pipex(av[i++], env, STDOUT_FILENO);
-		unlink("tmp.txt");
-		exec(av[i], env);
+		wl(i, argc, env, av);
 	}
 	write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
 }

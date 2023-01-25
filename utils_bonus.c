@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 22:10:20 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/23 15:35:19 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 10:05:17 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,18 @@ void	check_space(char **av, int argc)
 			exit(1);
 		}
 	}
+}
+
+void	dp(int infile, int outfile)
+{
+	dup2(infile, STDIN_FILENO);
+	dup2(outfile, STDOUT_FILENO);
+}
+
+void	wl(int i, int argc, char **env, char **av)
+{
+	while (i < argc - 2)
+		pipex(av[i++], env, STDOUT_FILENO);
+	unlink("tmp.txt");
+	exec(av[i], env);
 }
