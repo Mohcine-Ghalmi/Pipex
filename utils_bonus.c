@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 22:10:20 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 15:54:50 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 18:50:44 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	here_doc(char **av, int infile)
 		str = get_next_line(STDIN_FILENO);
 	}
 	free(end);
+	close(infile);
+	open("tmp.txt", O_RDONLY);
 }
 
 void	check_space(char **av, int argc)
