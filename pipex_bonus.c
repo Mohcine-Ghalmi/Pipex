@@ -94,7 +94,7 @@ int	main(int argc, char **av, char **env)
 		if (infile == -1)
 			exit(1);
 		dp(infile, outfile);
-		pipex2(av[i - 1], av[i],env, infile);
+		pipex2(av[i - 1], av[i], env, infile);
 		wl(i, argc, env, av);
 	}
 	write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
