@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 15:01:30 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:22:53 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int argc, char **av, char **env)
 			exit(1);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
-		pipex1(av[2],av[3] ,env);
+		pipex1(av[2], av[3], env);
 		exit(0);
 	}
 	write(STDERR_FILENO, "Invalid number of arguments.\n", 29);

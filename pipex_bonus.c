@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 18:44:30 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:30:29 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ void	exec(char *cmd, char **env)
 	exit(1);
 }
 
+void	here_doc2(char **av, int infile, int outfile, char **env)
+{
+	here_doc(av, infile);
+	dp(infile, outfile);
+	pipex1(av[3], av[4], env);
+	unlink("tmp.txt");
+}
 
 int	main(int argc, char **av, char **env)
 {
@@ -84,17 +91,14 @@ int	main(int argc, char **av, char **env)
 		if (ft_strncmp(av[1], "here_doc", 9) == 0)
 		{
 			infile = open("tmp.txt", O_CREAT | O_RDWR | O_APPEND, 0777);
-			here_doc(av, infile);
-			dp(infile, outfile);
-			pipex1(av[3], av[4], env);
-			unlink("tmp.txt");
+			here_doc2(av, infile, outfile, env);
 			exit(1);
 		}
 		infile = openfile(av[1], STDIN_FILENO);
 		if (infile == -1)
 			exit(1);
 		dp(infile, outfile);
-		pipex2(av[i - 1], av[i], env, infile);
+		pipex1(av[i - 1], av[i], env);
 		wl(i, argc, env, av);
 	}
 	write(STDERR_FILENO, "Invalid number of arguments.\n", 29);

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:37 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 15:52:52 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:28:37 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	here_doc(char **av, int infile);
 int		ft_strspace(char *str);
 void	check_space(char **av, int argc);
 void	pipex(char *cmd1, char *cmd2, char **env, int infile);
-void	pipex1(char *cmd1,char *cmd2, char **env);
-void	pipex2(char *cmd1, char *cmd2, char **env, int infile);
+void	pipex1(char *cmd1, char *cmd2, char **env);
 void	dp(int infile, int outfile);
 void	wl(int i, int argc, char **env, char **av);
 void	exec(char *cmd, char **env);

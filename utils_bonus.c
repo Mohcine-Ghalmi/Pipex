@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 22:10:20 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 18:50:44 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:28:32 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	wl(int i, int argc, char **env, char **av)
 {
 	while (i < argc - 4)
 	{
-		pipex2(av[i + 1], av[i + 2], env, STDOUT_FILENO);
-		i+=2;
+		pipex1(av[i + 1], av[i + 2], env);
+		i += 2;
 	}
 	exit(1);
 }
