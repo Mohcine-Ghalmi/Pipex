@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/23 15:17:41 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/25 10:23:10 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ void	exec(char *cmd, char **env)
 	exit(1);
 }
 
-void	pipex(char *cmd, char **env)
+void	pipex1(char *cmd, char **env)
 {
 	pid_t	pid1;
 	pid_t	pid2;
 	int		pipefd[2];
 
-	if (pipe(pipefd) < 0)
-		exit(1);
 	pid1 = fork();
 	pid2 = fork();
+	if (pid1 == -1 || pid2 == -1 || pipe(pipefd) < 0)
+		exit(1);
 	if (pid1)
 	{
 		close(pipefd[0]);
@@ -113,7 +113,7 @@ int	main(int argc, char **av, char **env)
 			exit(1);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
-		pipex(av[2], env);
+		pipex1(av[2], env);
 		exec(av[3], env);
 	}
 	else
