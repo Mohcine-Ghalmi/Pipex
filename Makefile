@@ -20,9 +20,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 HEADER = pipex.h
 
-SRC = pipex.c utils.c ft_split.c 
+SRC = pipex.c utils.c ft_split.c  ft_pipex.c
 
-SRCB = pipex_bonus.c utils.c ft_split.c get_next_line/get_next_line_utils.c get_next_line/get_next_line.c utils_bonus.c
+SRCB = pipex_bonus.c utils.c ft_split.c ft_pipex.c get_next_line/get_next_line_utils.c get_next_line/get_next_line.c utils_bonus.c
 
 OBJ = $(SRC:c=o)
 

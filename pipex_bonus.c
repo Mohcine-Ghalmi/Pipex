@@ -69,35 +69,33 @@ void	exec(char *cmd, char **env)
 	exit(1);
 }
 
-void	pipex(char *cmd1, char *cmd2, char **envp)
-{
-	  
-}
 
 int	main(int argc, char **av, char **env)
 {
 	int	infile;
 	int	outfile;
-	int	i;
+	// int	i;
 
-	i = 3;
+	// i = 3;
 	if (argc >= 5)
 	{
 		check_space(av, argc);
 		if (ft_strncmp(av[1], "here_doc", 9) == 0)
 		{
 			infile = open("tmp.txt", O_CREAT | O_RDWR | O_APPEND, 0777);
+			outfile = openfile(av[argc - 1], STDOUT_FILENO);
 			here_doc(av, infile);
-			i = 4;
-		}
-		else
-			infile = openfile(av[1], STDIN_FILENO);
-		outfile = openfile(av[argc - 1], STDOUT_FILENO);
-		if (infile == -1)
+			dp(infile, outfile);
+			pipex1(av[3], av[4], env);
+			unlink("tmp.txt");
 			exit(1);
-		dp(infile, outfile);
-		pipex(av[i - 1], av[i],env, infile);
-		wl(i, argc, env, av);
+		}
+		// infile = openfile(av[1], STDIN_FILENO);
+		// if (infile == -1)
+		// 	exit(1);
+		// dp(infile, outfile);
+		// pipex1(av[i - 1], av[i],env);
+		// wl(i, argc, env, av);
 	}
 	write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
 }

@@ -61,13 +61,13 @@ void	dp(int infile, int outfile)
 	dup2(outfile, STDOUT_FILENO);
 }
 
-void	wl(int i, int argc, char **env, char **av)
-{
-	while (i < argc - 2)
-	{
-		pipex(av[i + 1], av[i + 2], env, STDOUT_FILENO);
-		i += 2;
-	}
-	unlink("tmp.txt");
-	exit(1);
-}
+// void	wl(int i, int argc, char **env, char **av)
+// {
+// 	while (i < argc - 4)
+// 	{
+// 		pipex1(av[i + 1], av[i + 2], env);
+// 		i+=2;
+// 	}
+// 	exec(av[argc - 1], env);
+// 	exit(1);
+// }
