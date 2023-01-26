@@ -6,7 +6,7 @@
 #    By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 15:18:51 by mghalmi           #+#    #+#              #
-#    Updated: 2023/01/25 15:12:34 by mghalmi          ###   ########.fr        #
+#    Updated: 2023/01/26 16:32:43 by mghalmi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAMEB = pipex_bonus
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 
 HEADER = pipex.h
 
