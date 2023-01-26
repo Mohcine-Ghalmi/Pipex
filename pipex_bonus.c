@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 19:30:29 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:10:42 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ int	main(int argc, char **av, char **env)
 {
 	int	infile;
 	int	outfile;
-	int	i;
 
-	i = 3;
 	if (argc >= 5)
 	{
 		check_space(av, argc);
@@ -98,8 +96,8 @@ int	main(int argc, char **av, char **env)
 		if (infile == -1)
 			exit(1);
 		dp(infile, outfile);
-		pipex1(av[i - 1], av[i], env);
-		wl(i, argc, env, av);
+		pipex(av[2], env);
+		wl(argc, env, av, outfile);
 	}
 	write(STDERR_FILENO, "Invalid number of arguments.\n", 29);
 }

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 22:10:20 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/25 19:28:32 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:11:23 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ void	dp(int infile, int outfile)
 	dup2(outfile, STDOUT_FILENO);
 }
 
-void	wl(int i, int argc, char **env, char **av)
+void	wl(int argc, char **env, char **av, int outfile)
 {
-	while (i < argc - 4)
-	{
-		pipex1(av[i + 1], av[i + 2], env);
-		i += 2;
-	}
+	int	i;
+
+	i = 3;
+	while (i < argc - 2)
+		pipex(av[i++], env);
+	dup2(outfile, STDOUT_FILENO);
+	exec(av[i], env);
 	exit(1);
 }
