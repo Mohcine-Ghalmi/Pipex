@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:24:34 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/01/26 16:10:42 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:14:51 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	exec(char *cmd, char **env)
 void	here_doc2(char **av, int infile, int outfile, char **env)
 {
 	here_doc(av, infile);
-	dp(infile, outfile);
+	dup2(infile, STDIN_FILENO);
+	dup2(outfile, STDOUT_FILENO);
 	pipex1(av[3], av[4], env);
 	unlink("tmp.txt");
 }
@@ -95,7 +96,7 @@ int	main(int argc, char **av, char **env)
 		infile = openfile(av[1], STDIN_FILENO);
 		if (infile == -1)
 			exit(1);
-		dp(infile, outfile);
+		dup2(infile, STDIN_FILENO);
 		pipex(av[2], env);
 		wl(argc, env, av, outfile);
 	}
