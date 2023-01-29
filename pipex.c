@@ -82,8 +82,6 @@ int	main(int argc, char **av, char **env)
 		}
 		infile = openfile(av[1], STDIN_FILENO);
 		outfile = openfile(av[4], STDOUT_FILENO);
-		if (infile == -1)
-			exit(1);
 		dup2(infile, STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
 		pipex1(av[2], av[3], env);
